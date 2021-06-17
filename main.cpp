@@ -4,17 +4,17 @@ int funcionPotencia(){
  int example;
 }
 //funcion que multiplica la potencia
-long exp_mult(int x, int y){
-    int z = 0;
-    while (y != 0)
+long pow_multiply(int a, int b){
+    long pow = 0;
+    while (b != 0)
     {
-        if (y % 2){
-            z += x;
+        if (b % 2){
+            pow += a;
         }
-        x = x << 1;
-        y = y >> 1;
+        a = a << 1;
+        b = b >> 1;
     }
-    return z;
+    return pow;
 }
 
 int main(){
