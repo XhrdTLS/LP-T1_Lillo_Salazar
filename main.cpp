@@ -1,6 +1,8 @@
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
-#define int matriz[100][100];
+
+typedef int matriz[100][100];
 
 //función que permite mostrar por pantalla el numero binario de un numero (32 bits)
 void printBinary(unsigned int number){
@@ -10,7 +12,7 @@ void printBinary(unsigned int number){
   }
   cout << " : DEC = " << number << endl;
 }
-//funcion que multiplica por potencias mayores de 2
+//[1.1]funcion que multiplica por potencias mayores de 2
 long pow_mult(int a, int b){
     long pow = 0, temp = 0;
     //cuando 'a' es mayor que 'b', el binario no coincide con el resultado, por lo que si es mayor, se invierte.
@@ -35,7 +37,7 @@ long pow_mult(int a, int b){
     }
     return pow;
 }
-//funcion que divide por potencias mayores de 2
+//[1.2]funcion que divide por potencias mayores de 2
 int pow_div(int a, int b){
   int pow = 0;
   cout << b << endl;
@@ -56,20 +58,45 @@ int pow_div(int a, int b){
   }
   return pow;
 }
-//funcion que crea una matriz
-void new_matriz(int n, int m){
-  int i = 0, j = 0; 
-  matriz matrizWL[n][m]; //nombre referencia a Without Loop
-  loop_llenar:
-    cout << " > ingrese el numero que corresponde a A" << i+1;
-    cin >> matrixWL[i][j];
-    i++;
-    if(i < n){
-      goto loop_llenar;
-    }
-  
-}
+//[2.1]funcion que crea una matriz
+void new_matriz(int n, int m, matriz matrizWL){ //matriz without loop
+  int i = 0, j; 
 
+  /*El loop recorre todo j antes de seguir con i ejemplo: i1,j1 > i1,j2 > i1,j3
+  de manera que avanza por filas, antes de continuar con las columnas
+  de este modo se puede usar mxn                                               */
+  loop_i: //inicio de loop en i
+    if (i < n){
+      j = 0;
+      loop_j: //inicio de loop en j
+        if (j < m){
+          cout << " > ingrese el numero que corresponde a " << i + 1 << "-" << j + 1 << ": ";
+          cin >> matrizWL[i][j];
+          j++;
+          goto loop_j;
+        }//salida del loop en j
+        i++;
+        goto loop_i;
+    }//salida del loop en i
+
+  }
+// [2.2]func
+
+// [2.3]func
+
+// [4.1]func 
+/*long new_pot(int a,int b){ // calcular potencia.
+    int c=3;
+    int i;
+    int pot = c;
+    for (i = c; i <= b, i++){
+        pot = pot * b;
+    }
+    return pot;
+} V.1*/
+
+
+/* ------- Seccion uno ------- */
 void func_one(){
   int value_one, value_two, option=0;
   //valores de prueba
@@ -89,25 +116,41 @@ void func_one(){
     cout << "el resultado es: " << pow_mult(value_one, value_two) << endl;
     printBinary(pow_mult(value_one, value_two));
   }
-  else if (option != 0)
-  {
+  else if (option != 0){
     cout << " El numero ingresado no corresponde a ninguna de las opciones." << endl;
   }
-  
 }
-void func_two(){
-  cout << "Se comienza a crear la matriz de prueba con los datos:\n"
-       << "Matriz de 3 x 2 (para ejemplo), con datos ingresados, \nluego se podra ingresar datos manuales.(m x n)\n";
-  new_matriz(3,2);
+/* ------- Seccion dos ------- */
+void func_two(matriz matrizWL){
+  int value_n, value_m;
+  cout << "Para crear una Matriz de n x m se necesita:\n"
+       << "\n > Ingresar n: ";
+  cin >> value_n;
+  cout << "\n > Ingresar m: ";
+  cin >> value_m;
+  new_matriz(value_n, value_m, matrizWL);
 }
+/* ------- Seccion tres ------- */
+
+
 int main(){
-    cout    << "=========================================\n"
-            << " - - - - - B I E N V E N I D O - - - - - \n"
-            << "\n1. Multiplicacion y division utilizando shift.\n";
-    func_one();
-    //solo funciona en windows
-    system("pause");
-    cout    << "\n\n2. Creacion de matrices.\n";
-    func_two();
-    return 0;
+  matriz matriz_global;
+  cout << "=========================================\n"
+       << " - - - - - B I E N V E N I D O - - - - - \n"
+       << "=========================================\n";
+  system("pause"); //solo funciona en windows
+  cout << "\n1. Multiplicacion y division utilizando shift.\n";
+  func_one();
+  system("pause"); //solo funciona en windows
+  cout << "\n2. Creacion de matrices.\n";
+  func_two(matriz_global);
+  return 0;
+}
+
+/* ------- Seccion cuatro ------- */
+   // https://www.youtube.com/watch?v=9FKV4lhXTU0&ab_channel=MateFacil (conjunto potencia)
+   // base T = {x / 0 ≤ x ≤ 9} es decir P(T).
+
+void func_four(){
+    int i, y, lim;
 }
