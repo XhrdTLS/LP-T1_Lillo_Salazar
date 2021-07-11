@@ -141,10 +141,40 @@ loop_i: //inicio de loop en i
   } //salida del loop en i
 
 }
+//arreglos definidos de manera global
+int *arrDinamico, arreglo=0;
+// [3.1]funcion que crea un arreglo dinamico
+void dyArray(){
+  cout << "\n Se crea el arreglo de enteros\n";
+  arrDinamico = new int[arreglo];
+}
 
-    /* ------- Seccion uno ------------------------------------------------------------- */
-    void func_one()
-{
+// [3.2]funcion que inserta elementos al arreglo
+void insert_dyArray(int posicion){
+  int numero;
+  cout << " > Ingrese un numero para agregar al arreglo en la posicion " << posicion <<": ";
+  cin >> numero;
+  arrDinamico[posicion] = numero;
+}
+
+// [3.3]funcion que verifica la longitud del arreglo
+int length_dyArray(){
+  arreglo++;
+  return arreglo;
+}
+
+// [3.4]funcion que despliega el contenido del arreglo
+void show_dyArray(){
+  cout << "\n Arreglo ingresado:\n  A[ ";
+  for (int i = 1; i <= arreglo; i++){
+    cout << arrDinamico[i] << " ";
+  }
+  cout << "]\n";
+}
+
+/* ------- Seccion uno ------------------------------------------------------------- */
+void func_one(){
+  cout << "\n1. Multiplicacion y division utilizando shift.\n";
   int value_one, value_two, option=0;
   //valores de prueba
   cout << "Se comenzara con los numeros de prueba\nEn la multiplicacion seran 20 y 15\n"
@@ -169,8 +199,8 @@ loop_i: //inicio de loop en i
 }
 
 /* ------- Seccion dos ------------------------------------------------------------ */
-void func_two(matriz matrizWL)
-{
+void func_two(matriz matrizWL){
+  cout << "\n2. Creacion de matrices.\n";
   int value_n, value_m;
   matriz matrizWL2;
   cout << "Para crear una Matriz de n x m se necesita:\n"
@@ -189,10 +219,26 @@ void func_two(matriz matrizWL)
   show_matriz(matrizWL2, value_n, value_m);
 }
 
-
-// [2.3]func
-/* ------- Seccion tres ----------------------------------------------------------------- */
-
+/* ------- Seccion tres ----------------------------------------------------------- */
+void func_three(){
+  cout << "\n3. Simulacion de estrategia dinamica.\n";
+  int verif, num_ingresado;
+  dyArray();
+  do
+  {
+    insert_dyArray(length_dyArray());
+    cout << " > Ingrese 1 si desea ingresar otro numero,\n   0 en caso contrario\n   > ";
+    cin >> verif;
+    if (verif !=1){ //para evitar el loop infinito
+      verif = 0;
+    }
+    
+  } while (verif != 0);
+  cout << "\n Se ha finalizado la simulacion, en total se han indexado " << arreglo << " numeros"
+       << "\n Por lo que el valor del dominio en R es de " << arreglo << endl;
+  show_dyArray();
+  delete[] arrDinamico;
+}
 
 /*--------- MAIN ------------------------------------------------------------------------ */
 int main(){
@@ -201,12 +247,11 @@ int main(){
        << " - - - - - B I E N V E N I D O - - - - - \n"
        << "=========================================\n";
   system("pause"); //solo funciona en windows
-  cout << "\n1. Multiplicacion y division utilizando shift.\n";
   func_one();
   system("pause"); //solo funciona en windows
-  cout << "\n2. Creacion de matrices.\n";
   func_two(matriz_global);
-
+  system("pause");
+  func_three();
   
   return 0;
 }
